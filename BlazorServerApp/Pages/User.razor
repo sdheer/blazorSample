@@ -1,0 +1,10 @@
+﻿@page "/user"
+@inherits UserBase
+<h2>User Selection</h2>
+<p>
+    <input placeholder="Username" @bind="userInput" @onfocusout="getUser" />
+</p>
+@if (AllUsers == null)
+{
+    <div class="spinner-border text-danger"></div>
+}

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "TIjYrGfAnXsSfg8TrfoPNVUMdhbsBVODBhg4lwQX859y/T2gOPcN+i+VONlHO4RYEPbfkjhi0oGvjlTsXKIaZA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\shree\\source\\repos\\BlazorServerApp\\DataSharing\\DataSharing.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\shree\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.8\\microsoft.netcore.app.host.win-x64.5.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}

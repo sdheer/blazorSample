@@ -1,0 +1,135 @@
+﻿@page "/fetchdata/{id}"
+@inherits FetchDataBase
+@using BlazorServerApp.Data
+
+<h1>Food Order</h1>
+
+@if (StoreList == null)
+{
+    <div class="spinner-border text-primary"></div>
+}
+else
+{
+    <EditForm Model=StoreList OnSubmit=@FormSubmitted>
+        <div class="form-group row">
+            <label for="stores" class="col-sm-2 col-form-label">
+                Stores
+            </label>
+            <div class="col-sm-10">
+                <select id="Store" @onchange="storeSelection" @onclick="changeStatus" class="form-control">
+                    @if (SelectedStoreID == -1)
+                    {
+                        <option value="-1">Select Store</option>
+                    }
+                    else
+                    {
+                        <option value="-1">Select Store</option>
+                        @foreach (var store in StoreList)
+                        {
+                            <option value="@store.Id">@store.Name</option>
+                        }
+                    }
+
+                </select>
+            </div>
+            <label for="foodItem" class="col-sm-2 col-form-label">
+                Food Items
+            </label>
+            <div class="col-sm-10">
+
+                @if (ItemList != null)
+                {
+                    <select id="item" @bind=itemID class="form-control">
+                        @if (SelectedStoreID == -1)
+                        {
+                            <option value="-1">Select Food</option>
+                        }
+                        else
+                        {
+                            <option value="-1">Select Food</option>
+                            @foreach (var item in ItemList)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        }
+                    </select>
+                }
+
+            </div>
+
+        </div>
+        <div class="row" style="margin-left:200px">
+            <div class="col-sm-10">
+                <div class=".col-md-10 btn-group">
+                    <input type="submit" value="Add" @onclick="addItem" class="btn btn-primary" />
+                    <input type="submit" value="Submit" @onclick="submit" class="btn btn-primary" />
+                </div>
+                <div class="col-sm-10">
+                    <input type="submit" value="Report" @onclick="getReport" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+        @if (ItemsSelected.Count() > 0)
+        {
+
+            <table class="table">
+                <thead>
+
+                <th>Name</th>
+                <th>Price</th>
+
+                </thead>
+                @foreach (var item in ItemsSelected)
+                {
+                    <tr>
+
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                    </tr>
+
+                }
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><h6>Total Price : @ItemsSelected.Sum(x=>x.Price)</h6></td>
+                    </tr>
+                </tfoot>
+
+            </table>
+        }
+    </EditForm>
+    <h3>Order Report @Report.Count</h3>
+    @if (Report != null)
+    {
+
+        <table class="table">
+            <thead>
+            <th>UserName</th>
+            <th>StoreName</th>
+            <th>Name</th>
+            <th>Price</th>
+            </thead>
+            @foreach (var order in Report)
+            {
+                <tr>
+                    <td>@order.UserName</td>
+                    <td>@order.StoreName</td>
+                    <td>
+                        @foreach (var item in order.Items)
+                        {
+                    <tr>
+                        <td>@item.Name</td>
+                    </tr>
+                        }
+                </td>
+                <td>@order.Items.Sum(x=>x.Price)</td>
+                </tr>
+
+            }
+        </table>
+
+    }
+}
+
+
